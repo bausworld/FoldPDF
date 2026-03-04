@@ -209,6 +209,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Polyfill Map.prototype.getOrInsertComputed for Safari < 18.4 (required by pdfjs-dist ≥ 5.x) */}
+        <script dangerouslySetInnerHTML={{ __html: `if(typeof Map!=="undefined"&&!Map.prototype.getOrInsertComputed){Map.prototype.getOrInsertComputed=function(k,f){if(!this.has(k))this.set(k,f(k));return this.get(k);};}` }} />
         {/* JSON-LD Structured Data */}
         <script
           type="application/ld+json"
