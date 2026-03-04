@@ -1,23 +1,18 @@
 /** @type {import('next').NextConfig} */
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 const nextConfig = {
-    // Serve the app at pixel-and-purpose.com/pdf
-    basePath: '/pdf',
+    // Set NEXT_PUBLIC_BASE_PATH=/pdf in Netlify env vars for production.
+    // Leave unset locally so localhost:3000 works without any prefix.
+    basePath,
     typescript: {
         ignoreBuildErrors: true,
     },
     images: {
         unoptimized: true,
     },
-    // Redirect bare root to /pdf so localhost:3000 doesn't show a blank 404
-    async redirects() {
-        return [
-            {
-                source: '/',
-                destination: '/pdf',
-                basePath: false,
-                permanent: false,
-            },
-        ];
+    env: {
+        NEXT_PUBLIC_BASE_PATH: basePath,
     },
 }
 

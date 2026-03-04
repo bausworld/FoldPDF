@@ -12,7 +12,10 @@
   publish   = ".next"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION         = "20"
+  # This sets the /pdf subpath for production.
+  # Locally, leave NEXT_PUBLIC_BASE_PATH unset so localhost:3000 works normally.
+  NEXT_PUBLIC_BASE_PATH = "/pdf"
 
 # The app lives at /pdf because next.config.mjs sets basePath: '/pdf'.
 # Netlify serves it correctly without any manual redirects needed.

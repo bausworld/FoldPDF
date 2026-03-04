@@ -29,7 +29,8 @@ async function ensureWorker() {
   // Served from /public under the /pdf basePath.
   // ADMIN: if you upgrade pdfjs-dist, run:
   //   cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdf.worker.min.mjs
-  GlobalWorkerOptions.workerSrc = "/pdf/pdf.worker.min.mjs";
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  GlobalWorkerOptions.workerSrc = `${base}/pdf.worker.min.mjs`;
   workerReady = true;
 }
 

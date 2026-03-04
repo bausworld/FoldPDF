@@ -59,7 +59,8 @@ export function EmailGateDialog({
       try {
         // Calls our Next.js server-side proxy to avoid CORS.
         // Credentials never leave the server.
-        const response = await fetch("/pdf/api/subscribe", {
+        const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+        const response = await fetch(`${base}/api/subscribe`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email }),
