@@ -8,6 +8,17 @@ const nextConfig = {
     images: {
         unoptimized: true,
     },
+    // Redirect bare root to /pdf so localhost:3000 doesn't show a blank 404
+    async redirects() {
+        return [
+            {
+                source: '/',
+                destination: '/pdf',
+                basePath: false,
+                permanent: false,
+            },
+        ];
+    },
 }
 
 export default nextConfig

@@ -4,11 +4,12 @@
  * Includes nav links, branding, and privacy message.
  */
 
+import Link from "next/link";
 import { FileText, Heart, ExternalLink } from "lucide-react";
 
 const FOOTER_LINKS = [
-  { label: "Home", href: "https://pixel-and-purpose.com" },
-  { label: "Privacy", href: "/privacy" },
+  { label: "Home", href: "https://pixel-and-purpose.com", external: true },
+  { label: "Privacy", href: "/privacy", external: false },
 ];
 
 export function SiteFooter() {
@@ -42,12 +43,21 @@ export function SiteFooter() {
             <ul className="flex flex-wrap gap-x-5 gap-y-2">
               {FOOTER_LINKS.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.label}
-                  </a>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

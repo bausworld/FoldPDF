@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Cookie, X } from "lucide-react";
 
@@ -46,12 +47,12 @@ export function CookieConsent() {
               This site uses minimal cookies solely for remembering your
               preferences. We never track you, sell data, or use advertising
               cookies.{" "}
-              <a
-                href="https://pixel-and-purpose.com/privacy"
+              <Link
+                href="/privacy"
                 className="font-medium text-primary underline-offset-2 hover:underline"
               >
                 Privacy Policy
-              </a>
+              </Link>
             </p>
           </div>
         </div>
