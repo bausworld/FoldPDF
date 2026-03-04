@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 
-const BASE_URL = 'https://pixel-and-purpose.com/pdf'
+const BASE_URL = 'https://pdf.pixel-and-purpose.com/pdf'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

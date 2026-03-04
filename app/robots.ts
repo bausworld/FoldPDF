@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: '/pdf/api/',
       },
     ],
-    sitemap: 'https://pixel-and-purpose.com/pdf/sitemap.xml',
-    host: 'https://pixel-and-purpose.com',
+    sitemap: 'https://pdf.pixel-and-purpose.com/pdf/sitemap.xml',
+    host: 'https://pdf.pixel-and-purpose.com',
   }
 }

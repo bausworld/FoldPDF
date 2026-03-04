@@ -20,6 +20,14 @@
 # The app lives at /pdf because next.config.mjs sets basePath: '/pdf'.
 # Netlify serves it correctly without any manual redirects needed.
 
+# Serve robots.txt at the domain root (crawlers expect /robots.txt, but Next.js
+# with basePath=/pdf generates it at /pdf/robots.txt).
+[[redirects]]
+  from   = "/robots.txt"
+  to     = "/pdf/robots.txt"
+  status = 200
+  force  = true
+
 # Optional: redirect the bare domain root to /pdf for convenience
 [[redirects]]
   from   = "/"

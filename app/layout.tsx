@@ -41,18 +41,10 @@ export const metadata: Metadata = {
     title: 'FoldPDF — Free PDF Splitter & Merger | No Uploads, 100% Private',
     description:
       'Split, merge, and reorder PDF pages instantly in your browser. No file uploads, no tracking. Free forever — Pro unlocks unlimited files for just $5.',
-    url: 'https://pixel-and-purpose.com/pdf',
+    url: 'https://pdf.pixel-and-purpose.com/pdf',
     siteName: 'FoldPDF',
     type: 'website',
     locale: 'en_US',
-    images: [
-      {
-        url: 'https://pixel-and-purpose.com/pdf/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'FoldPDF — Free, private PDF splitter and merger by Pixel & Purpose',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -61,10 +53,9 @@ export const metadata: Metadata = {
       'Split, merge, and reorder PDFs instantly in your browser. No uploads, no tracking. Free forever.',
     site: '@pixelandpurpose',
     creator: '@pixelandpurpose',
-    images: ['https://pixel-and-purpose.com/pdf/og-image.png'],
   },
   alternates: {
-    canonical: 'https://pixel-and-purpose.com/pdf',
+    canonical: 'https://pdf.pixel-and-purpose.com/pdf',
   },
   category: 'technology',
   icons: {
@@ -91,9 +82,9 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'WebApplication',
-      '@id': 'https://pixel-and-purpose.com/pdf#app',
+      '@id': 'https://pdf.pixel-and-purpose.com/pdf#app',
       name: 'FoldPDF',
-      url: 'https://pixel-and-purpose.com/pdf',
+      url: 'https://pdf.pixel-and-purpose.com/pdf',
       description:
         'Split PDFs into individual pages, merge multiple PDFs into one, and reorder pages — all instantly in your browser. No uploads. No tracking. 100% private.',
       applicationCategory: 'UtilityApplication',
@@ -133,8 +124,8 @@ const jsonLd = {
     },
     {
       '@type': 'WebSite',
-      '@id': 'https://pixel-and-purpose.com/pdf#website',
-      url: 'https://pixel-and-purpose.com/pdf',
+      '@id': 'https://pdf.pixel-and-purpose.com/pdf#website',
+      url: 'https://pdf.pixel-and-purpose.com/pdf',
       name: 'FoldPDF by Pixel & Purpose',
       description: 'Free, privacy-first online PDF tools.',
       publisher: {
@@ -146,7 +137,7 @@ const jsonLd = {
         '@type': 'SearchAction',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: 'https://pixel-and-purpose.com/pdf?q={search_term_string}',
+          urlTemplate: 'https://pdf.pixel-and-purpose.com/pdf?q={search_term_string}',
         },
         'query-input': 'required name=search_term_string',
       },
