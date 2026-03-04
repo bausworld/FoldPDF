@@ -23,7 +23,7 @@ import { Badge } from "@/components/ui/badge";
    To go live, replace with the equivalent link from live mode in the Stripe dashboard.
    After payment, Stripe redirects to /?pro=true which auto-unlocks Pro.
 ------------------------------------------------ */
-const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/test_5kQ4gz8TQ7Jt4o44E908g00";
+const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/5kQ4gz8TQ7Jt4o44E908g00";
 
 // ─── Compact inline nudge (sits next to action buttons) ─────────────────
 

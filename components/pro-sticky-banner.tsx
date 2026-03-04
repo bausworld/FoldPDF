@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { usePro } from "@/lib/pro-context";
 
 /* ADMIN: keep in sync with pro-upgrade-card.tsx */
-const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/test_5kQ4gz8TQ7Jt4o44E908g00";
+const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/5kQ4gz8TQ7Jt4o44E908g00";
 const DISMISS_KEY = "foldpdf-pro-banner-dismissed";
 
 export function ProStickyBanner() {
