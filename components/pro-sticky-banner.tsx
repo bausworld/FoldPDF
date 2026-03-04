@@ -14,13 +14,19 @@ import { Crown, X, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePro } from "@/lib/pro-context";
 
-/* ADMIN: keep in sync with pro-upgrade-card.tsx */
-const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/5kQ4gz8TQ7Jt4o44E908g00";
 const DISMISS_KEY = "foldpdf-pro-banner-dismissed";
+
+async function startCheckout() {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const res = await fetch(`${base}/api/create-checkout`, { method: "POST" });
+  const data = await res.json();
+  if (data.url) window.location.href = data.url;
+}
 
 export function ProStickyBanner() {
   const { isPro } = usePro();
   const [dismissed, setDismissed] = useState(true); // start hidden to avoid flash
+  const [loading, setLoading] = useState(false);
 
   // Hydrate from sessionStorage after mount
   useEffect(() => {
@@ -61,11 +67,12 @@ export function ProStickyBanner() {
         {/* CTA */}
         <Button
           size="sm"
+          disabled={loading}
           className="h-7 gap-1.5 bg-pro-badge px-3 text-xs font-bold text-pro-badge-foreground shadow-sm hover:bg-pro-badge/90"
-          onClick={() => { window.location.href = STRIPE_PAYMENT_LINK; }}
+          onClick={async () => { setLoading(true); await startCheckout(); setLoading(false); }}
         >
           <Zap className="h-3 w-3" />
-          Go Pro — $5
+          {loading ? "Loading…" : "Go Pro — $5"}
         </Button>
 
         {/* Dismiss */}

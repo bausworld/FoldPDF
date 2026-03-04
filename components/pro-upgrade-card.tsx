@@ -14,21 +14,24 @@
 
 "use client";
 
+import { useState } from "react";
 import { usePro } from "@/lib/pro-context";
 import { Crown, Infinity, GripVertical, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-/* --- ADMIN: Stripe Payment Link (test mode) ---
-   To go live, replace with the equivalent link from live mode in the Stripe dashboard.
-   After payment, Stripe redirects to /?pro=true which auto-unlocks Pro.
------------------------------------------------- */
-const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/5kQ4gz8TQ7Jt4o44E908g00";
+async function startCheckout() {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const res = await fetch(`${base}/api/create-checkout`, { method: "POST" });
+  const data = await res.json();
+  if (data.url) window.location.href = data.url;
+}
 
 // ─── Compact inline nudge (sits next to action buttons) ─────────────────
 
 export function ProNudgeInline({ reason }: { reason?: string }) {
   const { isPro, unlockPro } = usePro();
+  const [loading, setLoading] = useState(false);
 
   if (isPro) return null;
 
@@ -48,11 +51,12 @@ export function ProNudgeInline({ reason }: { reason?: string }) {
       </div>
       <Button
         size="sm"
+        disabled={loading}
         className="gap-1.5 bg-pro-badge text-pro-badge-foreground hover:bg-pro-badge/90 font-bold shadow-sm shadow-pro-badge/20 transition-all hover:shadow-md hover:shadow-pro-badge/25"
-        onClick={() => { window.location.href = STRIPE_PAYMENT_LINK; }}
+        onClick={async () => { setLoading(true); await startCheckout(); setLoading(false); }}
       >
         <Crown className="h-3.5 w-3.5" />
-        Go Pro — $5
+        {loading ? "Loading…" : "Go Pro — $5"}
       </Button>
       <Button
         variant="ghost"
@@ -91,6 +95,7 @@ const PRO_PERKS = [
 
 export function ProUpgradeCard() {
   const { isPro, unlockPro } = usePro();
+  const [cardLoading, setCardLoading] = useState(false);
 
   if (isPro) return null;
 
@@ -127,11 +132,12 @@ export function ProUpgradeCard() {
         <div className="flex items-center gap-2">
           <Button
             size="sm"
+            disabled={cardLoading}
             className="gap-1.5 bg-pro-badge text-pro-badge-foreground hover:bg-pro-badge/90 font-bold shadow-sm shadow-pro-badge/20"
-            onClick={() => { window.location.href = STRIPE_PAYMENT_LINK; }}
+            onClick={async () => { setCardLoading(true); await startCheckout(); setCardLoading(false); }}
           >
             <Crown className="h-4 w-4" />
-            Buy Pro — $5
+            {cardLoading ? "Loading…" : "Buy Pro — $5"}
           </Button>
           <Button
             variant="ghost"
