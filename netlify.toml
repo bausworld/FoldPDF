@@ -8,7 +8,7 @@
 #   Netlify will provision an SSL cert automatically.
 
 [build]
-  command   = "npm run build"
+  command   = "npm ci && npm run build"
   publish   = ".next"
 
 [build.environment]
