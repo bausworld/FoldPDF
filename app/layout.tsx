@@ -26,6 +26,9 @@ export const metadata: Metadata = {
   authors: [{ name: 'Pixel & Purpose', url: 'https://pixel-and-purpose.com' }],
   creator: 'Pixel & Purpose',
   publisher: 'Pixel & Purpose',
+  verification: {
+    google: 'l5OG_Jx-3qs9W3Q4fP6ytS0RaMpYNZhRPvmoK-x3ogc',
+  },
   robots: {
     index: true,
     follow: true,
