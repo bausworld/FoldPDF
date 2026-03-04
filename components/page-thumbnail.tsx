@@ -26,10 +26,10 @@ let workerReady = false;
 async function ensureWorker() {
   if (workerReady) return;
   const { GlobalWorkerOptions } = await import("pdfjs-dist");
-  // Served from /public — always matches the installed package version.
+  // Served from /public under the /pdf basePath.
   // ADMIN: if you upgrade pdfjs-dist, run:
   //   cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdf.worker.min.mjs
-  GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
+  GlobalWorkerOptions.workerSrc = "/pdf/pdf.worker.min.mjs";
   workerReady = true;
 }
 
