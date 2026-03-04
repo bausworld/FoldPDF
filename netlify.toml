@@ -1,0 +1,25 @@
+# Netlify configuration for FoldPDF
+# Deploys the Next.js app — API routes (subscribe + stripe-webhook) run as
+# Netlify Functions automatically via the Next.js runtime plugin.
+#
+# Custom domain setup (one-time in Netlify UI):
+#   Site settings → Domain management → Add custom domain → pixel-and-purpose.com
+#   Then update your DNS at Turbify/Yahoo to point to Netlify's servers.
+#   Netlify will provision an SSL cert automatically.
+
+[build]
+  command   = "npm run build"
+  publish   = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# The app lives at /pdf because next.config.mjs sets basePath: '/pdf'.
+# Netlify serves it correctly without any manual redirects needed.
+
+# Optional: redirect the bare domain root to /pdf for convenience
+[[redirects]]
+  from   = "/"
+  to     = "/pdf"
+  status = 301
+  force  = false  # only fires if nothing else matches at /
