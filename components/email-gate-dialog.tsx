@@ -33,7 +33,7 @@ import {
 interface EmailGateDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSuccess: () => void;
+  onSuccess: (email: string) => void;
   actionLabel: string;
 }
 
@@ -74,7 +74,7 @@ export function EmailGateDialog({
         // Show a brief success screen, then proceed
         setStatus("success");
         setTimeout(() => {
-          onSuccess();
+          onSuccess(email);
           onOpenChange(false);
           // Reset for next time
           setStatus("idle");

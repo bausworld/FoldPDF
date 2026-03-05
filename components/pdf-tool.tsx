@@ -33,7 +33,7 @@ import {
 import { Loader2 } from "lucide-react";
 
 export function PdfTool() {
-  const { maxPages, maxFiles } = usePro();
+  const { isPro, maxPages, maxFiles } = usePro();
   const [pages, setPages] = useState<PdfPageInfo[]>([]);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [isLoading, setIsLoading] = useState(false);
@@ -63,14 +63,23 @@ export function PdfTool() {
     [isSubscribed]
   );
 
-  const handleEmailSuccess = useCallback(() => {
+  const handleEmailSuccess = useCallback((email: string) => {
     setIsSubscribed(true);
+    // Schedule a follow-up email 5 minutes later — free tier only
+    if (!isPro) {
+      const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+      fetch(`${base}/api/followup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      }).catch(() => { /* non-critical — ignore errors */ });
+    }
     // Run the pending action now that they're subscribed
     if (pendingAction.current) {
       pendingAction.current();
       pendingAction.current = null;
     }
-  }, []);
+  }, [isPro]);
 
   // --- File Upload Handler ---
 
