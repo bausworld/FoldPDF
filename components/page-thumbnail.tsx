@@ -100,7 +100,7 @@ export function PageThumbnail({
         }
 
         // Render the page into the canvas
-        await page.render({ canvasContext: ctx, viewport }).promise;
+        await page.render({ canvas, canvasContext: ctx, viewport }).promise;
 
         if (!cancelled) {
           setState("done");

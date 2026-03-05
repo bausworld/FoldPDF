@@ -30,7 +30,7 @@ async function startCheckout() {
 // ─── Compact inline nudge (sits next to action buttons) ─────────────────
 
 export function ProNudgeInline({ reason }: { reason?: string }) {
-  const { isPro, unlockPro } = usePro();
+  const { isPro } = usePro();
   const [loading, setLoading] = useState(false);
 
   if (isPro) return null;
@@ -57,14 +57,6 @@ export function ProNudgeInline({ reason }: { reason?: string }) {
       >
         <Crown className="h-3.5 w-3.5" />
         {loading ? "Loading…" : "Go Pro — $5"}
-      </Button>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={unlockPro}
-        className="text-[10px] text-muted-foreground hover:text-foreground px-2"
-      >
-        Test
       </Button>
     </div>
   );
@@ -94,7 +86,7 @@ const PRO_PERKS = [
 ];
 
 export function ProUpgradeCard() {
-  const { isPro, unlockPro } = usePro();
+  const { isPro } = usePro();
   const [cardLoading, setCardLoading] = useState(false);
 
   if (isPro) return null;
@@ -138,14 +130,6 @@ export function ProUpgradeCard() {
           >
             <Crown className="h-4 w-4" />
             {cardLoading ? "Loading…" : "Buy Pro — $5"}
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={unlockPro}
-            className="text-xs text-muted-foreground"
-          >
-            Test
           </Button>
         </div>
       </div>
