@@ -18,98 +18,63 @@ const UPGRADE_URL = "https://pdf.pixel-and-purpose.com/pdf";
 
 const emailHtml = (upgradeUrl: string) => `<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>How did it go?</title>
-</head>
-<body style="margin:0;padding:0;background:#0D0D0D;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0D0D0D;padding:40px 20px;">
-    <tr>
-      <td align="center">
-        <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#0D0D0D;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0D0D0D;padding:48px 20px;">
+<tr><td align="center">
+<table width="560" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;">
 
-          <!-- Logo / header -->
-          <tr>
-            <td style="padding-bottom:32px;text-align:center;">
-              <span style="font-size:22px;font-weight:700;letter-spacing:-0.5px;">
-                <span style="color:#00C48C;">Fold</span><span style="color:#ffffff;">PDF</span>
-              </span>
-            </td>
-          </tr>
+<tr><td align="center" style="padding-bottom:36px;">
+<span style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:24px;font-weight:700;letter-spacing:-0.5px;">
+<span style="color:#00C48C;">Fold</span><span style="color:#FFFFFF;">PDF</span>
+</span>
+</td></tr>
 
-          <!-- Card -->
-          <tr>
-            <td style="background:#1A1A1A;border:1px solid #2A2A2A;border-radius:16px;padding:40px 36px;">
+<tr><td style="background:#1A1A1A;border:1px solid #2A2A2A;border-radius:16px;padding:44px 40px;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
 
-              <p style="margin:0 0 8px;font-size:24px;font-weight:700;color:#ffffff;line-height:1.2;">
-                How did your PDF turn out? 👋
-              </p>
-              <p style="margin:0 0 24px;font-size:15px;color:#888888;line-height:1.6;">
-                You just split or merged a PDF with FoldPDF — all without uploading a single file to anyone's server. We hope it went smoothly.
-              </p>
+<tr><td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:26px;font-weight:700;color:#FFFFFF;line-height:1.2;padding-bottom:14px;">
+How did it go? &#128075;
+</td></tr>
 
-              <p style="margin:0 0 24px;font-size:15px;color:#CCCCCC;line-height:1.7;">
-                If you hit any limits (more than 3 files, or 10+ pages), <strong style="color:#ffffff;">FoldPDF Pro</strong> removes them all for a one-time payment of just <strong style="color:#00C48C;">$5</strong>. No subscription, no recurring charges — ever.
-              </p>
+<tr><td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;color:#999999;line-height:1.7;padding-bottom:22px;">
+You just processed a PDF entirely in your browser &mdash; no uploads, no servers, no one seeing your files. We hope it saved you some time.
+</td></tr>
 
-              <!-- Feature list -->
-              <table cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
-                <tr>
-                  <td style="padding:4px 0;font-size:14px;color:#AAAAAA;">
-                    <span style="color:#00C48C;margin-right:8px;">✓</span> Unlimited files &amp; pages
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding:4px 0;font-size:14px;color:#AAAAAA;">
-                    <span style="color:#00C48C;margin-right:8px;">✓</span> Drag-and-drop page reordering
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding:4px 0;font-size:14px;color:#AAAAAA;">
-                    <span style="color:#00C48C;margin-right:8px;">✓</span> Still 100% private — nothing leaves your device
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding:4px 0;font-size:14px;color:#AAAAAA;">
-                    <span style="color:#00C48C;margin-right:8px;">✓</span> Pay once, yours forever
-                  </td>
-                </tr>
-              </table>
+<tr><td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;color:#CCCCCC;line-height:1.7;padding-bottom:28px;">
+If you ran into limits, <strong style="color:#FFFFFF;">FoldPDF Pro</strong> removes every restriction for a single payment of <strong style="color:#00C48C;">$5</strong>. No subscription. No renewal. Pay once and it&rsquo;s yours.
+</td></tr>
 
-              <!-- CTA button -->
-              <table cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
-                <tr>
-                  <td align="center">
-                    <a href="${upgradeUrl}"
-                       style="display:inline-block;background:linear-gradient(135deg,#00C48C,#00A0FF);color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;padding:14px 32px;border-radius:10px;letter-spacing:0.2px;">
-                      Upgrade to Pro — $5 one-time →
-                    </a>
-                  </td>
-                </tr>
-              </table>
+<tr><td style="padding-bottom:32px;">
+<table cellpadding="0" cellspacing="0" border="0">
+<tr><td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;color:#AAAAAA;padding:5px 0;"><span style="color:#00C48C;font-weight:700;padding-right:10px;">&#10003;</span>Unlimited files &amp; pages</td></tr>
+<tr><td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;color:#AAAAAA;padding:5px 0;"><span style="color:#00C48C;font-weight:700;padding-right:10px;">&#10003;</span>Drag-and-drop page reordering</td></tr>
+<tr><td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;color:#AAAAAA;padding:5px 0;"><span style="color:#00C48C;font-weight:700;padding-right:10px;">&#10003;</span>Still 100% private &mdash; nothing leaves your device</td></tr>
+<tr><td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;color:#AAAAAA;padding:5px 0;"><span style="color:#00C48C;font-weight:700;padding-right:10px;">&#10003;</span>One-time payment &mdash; no recurring charges, ever</td></tr>
+</table>
+</td></tr>
 
-              <p style="margin:0;font-size:13px;color:#555555;line-height:1.6;border-top:1px solid #2A2A2A;padding-top:24px;">
-                If you have any questions or feedback, just reply to this email — it goes straight to the team.
-              </p>
+<tr><td align="left" style="padding-bottom:36px;">
+<a href="${upgradeUrl}" style="background:linear-gradient(135deg,#00C48C 0%,#00A0FF 100%);border-radius:10px;color:#FFFFFF;display:inline-block;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;font-weight:700;line-height:50px;padding:0 32px;text-align:center;text-decoration:none;">
+Upgrade to Pro &mdash; $5 one-time &rarr;
+</a>
+</td></tr>
 
-            </td>
-          </tr>
+<tr><td style="border-top:1px solid #2A2A2A;padding-top:24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;color:#555555;line-height:1.6;">
+Have feedback or questions? Just reply &mdash; this goes straight to the team.
+</td></tr>
 
-          <!-- Footer -->
-          <tr>
-            <td style="padding-top:24px;text-align:center;">
-              <p style="margin:0;font-size:12px;color:#444444;line-height:1.8;">
-                FoldPDF by <a href="https://pixel-and-purpose.com" style="color:#555555;">Pixel &amp; Purpose</a><br />
-                You're receiving this because you used FoldPDF.
-              </p>
-            </td>
-          </tr>
+</table>
+</td></tr>
 
-        </table>
-      </td>
-    </tr>
-  </table>
+<tr><td align="center" style="padding-top:28px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:12px;color:#444444;line-height:1.8;">
+FoldPDF by <a href="https://pixel-and-purpose.com" style="color:#555555;text-decoration:none;">Pixel &amp; Purpose</a><br>
+You received this because you used FoldPDF.
+</td></tr>
+
+</table>
+</td></tr>
+</table>
 </body>
 </html>`;
 
@@ -153,7 +118,7 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         from: { email: FROM_EMAIL, name: FROM_NAME },
         to: [{ email }],
-        subject: "How did your PDF turn out? 👋",
+        subject: "How did it go? Your PDF is ready",
         html: emailHtml(UPGRADE_URL),
         text: emailText,
         send_at: Math.floor(Date.now() / 1000) + 5 * 60, // Unix timestamp
