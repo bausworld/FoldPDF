@@ -67,7 +67,8 @@ export function EmailGateDialog({
         });
 
         if (!response.ok) {
-          throw new Error("Subscription failed");
+          const data = await response.json().catch(() => ({}));
+          throw new Error(data?.error || "Subscription failed");
         }
 
         // Show a brief success screen, then proceed
@@ -80,9 +81,9 @@ export function EmailGateDialog({
           setEmail("");
           setConsent(false);
         }, 1400);
-      } catch {
+      } catch (err) {
         setStatus("error");
-        setErrorMsg("Something went wrong. Please try again.");
+        setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again.");
       }
     },
     [email, consent, onSuccess, onOpenChange]

@@ -17,12 +17,53 @@ const CAMPAIGNCORE_API_KEY = "0f45ded1467fb522d6a240529561a4b0fed0997dd58369792c
 const CAMPAIGNCORE_SEGMENT_ID = "recXTVHnts2WmDZty";
 /* ---------------------------------------------------------- */
 
+/* --- MailerSend email verification (key stored in Netlify env vars) --- */
+const MAILERSEND_API_KEY = process.env.MAILERSEND_API_KEY ?? "";
+/* --------------------------------------------------------------------- */
+
+async function verifyEmail(email: string): Promise<{ valid: boolean; reason?: string }> {
+  if (!MAILERSEND_API_KEY) return { valid: true }; // skip if key not configured
+
+  try {
+    const res = await fetch("https://api.mailersend.com/v1/email-verification/verify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${MAILERSEND_API_KEY}`,
+      },
+      body: JSON.stringify({ email }),
+      signal: AbortSignal.timeout(8000),
+    });
+
+    if (!res.ok) return { valid: true }; // fail open on API error
+
+    const data = await res.json();
+    const state: string = data?.results?.state ?? "unknown";
+
+    if (state === "undeliverable") {
+      return {
+        valid: false,
+        reason: "That email address doesn't appear to exist. Please double-check and try again.",
+      };
+    }
+    return { valid: true };
+  } catch {
+    return { valid: true }; // fail open on timeout / network error
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const { email } = await request.json();
 
     if (!email || typeof email !== "string" || !email.includes("@")) {
       return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+    }
+
+    // Verify the email exists before adding to CampaignCore
+    const verification = await verifyEmail(email);
+    if (!verification.valid) {
+      return NextResponse.json({ error: verification.reason }, { status: 422 });
     }
 
     const response = await fetch(CAMPAIGNCORE_API_URL, {
