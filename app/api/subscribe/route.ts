@@ -38,9 +38,11 @@ async function verifyEmail(email: string): Promise<{ valid: boolean; reason?: st
     if (!res.ok) return { valid: true }; // fail open on API error
 
     const data = await res.json();
-    const state: string = data?.results?.state ?? "unknown";
+    // MailerSend single-verify returns { "status": "deliverable" | "undeliverable" | "risky" | "unknown" | "mailbox_not_found" | ... }
+    const state: string = data?.status ?? "unknown";
 
-    if (state === "undeliverable") {
+    const undeliverable = ["undeliverable", "mailbox_not_found", "invalid_address", "invalid_domain"];
+    if (undeliverable.includes(state)) {
       return {
         valid: false,
         reason: "That email address doesn't appear to exist. Please double-check and try again.",
