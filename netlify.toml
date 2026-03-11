@@ -11,6 +11,9 @@
   command   = "npm ci && npm run build"
   publish   = ".next"
 
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
 [build.environment]
   NODE_VERSION         = "20"
   # This sets the /pdf subpath for production.

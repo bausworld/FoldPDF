@@ -28,22 +28,45 @@ const CC_API_KEY = process.env.CAMPAIGNCORE_API_KEY ?? "0f45ded1467fb522d6a24052
 const CC_PRO_SEGMENT_ID = process.env.CAMPAIGNCORE_PRO_SEGMENT_ID ?? "";
 
 export async function POST(request: NextRequest) {
+  console.log("[stripe-webhook] Webhook request received");
+  
   if (!STRIPE_SECRET_KEY || !STRIPE_WEBHOOK_SECRET) {
-    console.error("[stripe-webhook] Missing STRIPE_SECRET_KEY or STRIPE_WEBHOOK_SECRET env vars");
+    console.error("[stripe-webhook] Missing environment variables:", {
+      hasSecretKey: !!STRIPE_SECRET_KEY,
+      hasWebhookSecret: !!STRIPE_WEBHOOK_SECRET
+    });
     return NextResponse.json({ error: "Webhook not configured" }, { status: 500 });
   }
 
+  // Initialize Stripe inside the function to avoid build-time issues
   const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: "2025-01-27.acacia" });
 
   // Read raw body for signature verification
-  const rawBody = await request.text();
+  let rawBody: string;
+  try {
+    rawBody = await request.text();
+    console.log("[stripe-webhook] Raw body length:", rawBody.length);
+  } catch (err) {
+    console.error("[stripe-webhook] Failed to read request body:", err);
+    return NextResponse.json({ error: "Could not read request body" }, { status: 400 });
+  }
+
   const signature = request.headers.get("stripe-signature") ?? "";
+  if (!signature) {
+    console.error("[stripe-webhook] Missing Stripe signature header");
+    return NextResponse.json({ error: "Missing signature" }, { status: 400 });
+  }
 
   let event: Stripe.Event;
   try {
     event = stripe.webhooks.constructEvent(rawBody, signature, STRIPE_WEBHOOK_SECRET);
+    console.log("[stripe-webhook] Event verified successfully:", event.type);
   } catch (err) {
-    console.error("[stripe-webhook] Signature verification failed:", err);
+    console.error("[stripe-webhook] Signature verification failed:", {
+      error: err instanceof Error ? err.message : err,
+      signaturePresent: !!signature,
+      bodyLength: rawBody.length
+    });
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
@@ -73,14 +96,48 @@ export async function POST(request: NextRequest) {
             tags: ["pro", "paid"],
           }),
         });
-        const data = await res.json();
-        console.log("[stripe-webhook] CampaignCore response:", data);
+        
+        if (!res.ok) {
+          const errorText = await res.text();
+          console.error("[stripe-webhook] CampaignCore error response:", {
+            status: res.status,
+            statusText: res.statusText,
+            body: errorText
+          });
+        } else {
+          const data = await res.json();
+          console.log("[stripe-webhook] CampaignCore response:", data);
+        }
       } catch (ccErr) {
         // Non-fatal — payment is recorded by Stripe regardless
         console.error("[stripe-webhook] CampaignCore tagging failed:", ccErr);
       }
+    } else {
+      console.warn("[stripe-webhook] Missing email or pro segment ID:", {
+        hasEmail: !!email,
+        hasSegmentId: !!CC_PRO_SEGMENT_ID
+      });
     }
+  } else {
+    // Log unhandled events for debugging
+    console.log(`[stripe-webhook] Unhandled event type: ${event.type}`);
   }
 
-  return NextResponse.json({ received: true });
+  return NextResponse.json({ received: true, eventType: event.type, timestamp: new Date().toISOString() });
+}
+
+// Health check endpoint
+export async function GET() {
+  console.log("[stripe-webhook] Health check requested");
+  
+  return NextResponse.json({ 
+    status: "healthy",
+    timestamp: new Date().toISOString(),
+    env: {
+      hasStripeSecretKey: !!STRIPE_SECRET_KEY,
+      hasWebhookSecret: !!STRIPE_WEBHOOK_SECRET,
+      hasCampaignCoreApiKey: !!CC_API_KEY,
+      hasProSegmentId: !!CC_PRO_SEGMENT_ID
+    }
+  });
 }

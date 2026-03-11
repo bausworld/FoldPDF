@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-01-27.acacia",
-});
-
 const PRODUCT_ID = "prod_U5TKJ0cdWVA06W";
 
 export async function POST(req: NextRequest) {
   try {
+    // Initialize Stripe inside the function to avoid build-time issues
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+      apiVersion: "2025-01-27.acacia",
+    });
     // Build success URL from the incoming request origin so it works in
     // both local dev (localhost:3000) and production (vercel domain).
     const origin = req.headers.get("origin") || req.nextUrl.origin;
